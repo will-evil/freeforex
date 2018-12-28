@@ -1,4 +1,4 @@
-package freeforexapi
+package freeforex
 
 import (
 	"encoding/json"
@@ -9,7 +9,7 @@ import (
 	"strings"
 )
 
-const apiUrl = "https://www.freeforexapi.com/api/live"
+const apiUrl = "https://www.freeforex.com/api/live"
 
 const successCode = 200
 
@@ -53,10 +53,14 @@ func preparePairs(pairs []string) []string {
 	var newPairs []string
 
 	for _, pair := range pairs {
-		newPairs = append(newPairs, strings.TrimSpace(strings.ToUpper(pair)))
+		newPairs = append(newPairs, preparePair(pair))
 	}
 
 	return newPairs
+}
+
+func preparePair(pair string) string {
+	return strings.TrimSpace(strings.ToUpper(pair))
 }
 
 func getRatesResponse(body []byte) (*RatesResponse, error) {
